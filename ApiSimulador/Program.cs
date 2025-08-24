@@ -194,7 +194,6 @@ app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Simulação v1");
     c.InjectStylesheet("/swagger/custom.css");   // adiciona CSS
-    c.InjectJavascript("/swagger/custom.js");    // se precisar de JS
 });
 
 app.UseHttpsRedirection();
@@ -242,6 +241,6 @@ if (!app.Environment.IsDevelopment())
 app.MapControllers();
 
 // https://localhost:7287/health
-app.MapHealthChecks("/health");
+app.MapHealthChecks("/");
 
 app.Run();
