@@ -1,0 +1,78 @@
+﻿/* Barra superior */
+.swagger-ui .topbar {
+    background-color: #005CA9; /* Azul CAIXA */
+    border-bottom: 4px solid #F39200; /* Laranja CAIXA */
+}
+
+/* Remove o texto padrão "Swagger" */
+.swagger-ui .topbar-wrapper .link span {
+    display: none;
+}
+
+/* Substitui pelo logo */
+.swagger-ui .topbar-wrapper .link::before {
+    content: url('/swagger/x-volume-negativa-54.png');
+    display: inline-block;
+    height: 40px;
+    margin-right: 10px;
+}
+
+/* Botões principais */
+.swagger-ui .btn {
+    background-color: #F39200 !important; /* Laranja */
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    color: #FFFFFF !important;
+}
+
+    .swagger-ui .btn:hover {
+        background-color: #F9B000 !important; /* Tangerina */
+    }
+
+/* Realce de seções (títulos) */
+.swagger-ui .opblock-tag {
+    background: #00B5E5; /* Azul Céu */
+    color: #FFFFFF;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-weight: 600;
+}
+
+/* Caixa das operações */
+.swagger-ui .opblock {
+    border: 1px solid #005CA9; /* Azul CAIXA */
+    border-radius: 8px;
+}
+
+    /* GET - verde turquesa */
+    .swagger-ui .opblock.opblock-get {
+        border-color: #54BBAB;
+        background: #E6F7F4;
+    }
+
+    /* POST - laranja */
+    .swagger-ui .opblock.opblock-post {
+        border-color: #F39200;
+        background: #FFF3E5;
+    }
+
+    /* PUT - azul marinho */
+    .swagger-ui .opblock.opblock-put {
+        border-color: #004198;
+        background: #E5EBF7;
+    }
+
+    /* DELETE - vermelho goiaba */
+    .swagger-ui .opblock.opblock-delete {
+        border-color: #EF765E;
+        background: #FDECEA;
+    }
+
+/* Rodapé */
+.swagger-ui .footer {
+    text-align: center;
+    color: #004198;
+    font-size: 12px;
+    padding: 10px;
+}
