@@ -33,8 +33,8 @@ namespace ApiSimulador.Controllers
         {
             try
             {
-                if (req == null)
-                    return BadRequest("Requisição inválida.");
+                //if (req == null)
+                //    return BadRequest("Requisição inválida.");
 
                 var produto = await _sqlServerContext.PRODUTO
                     .FirstOrDefaultAsync(p =>
@@ -127,19 +127,24 @@ namespace ApiSimulador.Controllers
                 var total = await _mysqlContext.SIMULACAO.AsNoTracking().CountAsync();
 
                 var simulacoes = await _mysqlContext.SIMULACAO
-                    .OrderByDescending(s => s.DT_SIMULACAO)
-                    .Include(s => s.Parcelas)
                     .AsNoTracking()
-                    .Skip(q.offset)
-                    .Take(q.limit)
+                    .OrderByDescending(s => s.CO_SIMULACAO)
                     .Select(s => new
                     {
                         idSimulacao = s.CO_SIMULACAO,
                         valorDesejado = s.VR_SIMULACAO,
                         prazo = s.PZ_SIMULACAO,
-                        s.TotalPrestacaoSAC,
-                        s.TotalPrestacaoPRICE
+
+                        TotalPrestacaoSAC = s.Parcelas
+                            .Where(p => p.TP_AMORTIZACAO == "SAC")
+                            .Sum(p => (decimal?)p.VR_PRESTACAO) ?? 0m,
+
+                        TotalPrestacaoPRICE = s.Parcelas
+                            .Where(p => p.TP_AMORTIZACAO == "PRICE")
+                            .Sum(p => (decimal?)p.VR_PRESTACAO) ?? 0m
                     })
+                    .Skip(q.offset)
+                    .Take(q.limit)
                     .ToListAsync();
 
                 if (!simulacoes.Any())
@@ -149,10 +154,22 @@ namespace ApiSimulador.Controllers
                 int currentPage = (q.offset / q.limit) + 1;
 
                 string baseUrl = $"{Request.Scheme}://{Request.Host}{Request.Path}";
+
                 string first = $"{baseUrl}?limit={q.limit}&offset=0";
                 string last = $"{baseUrl}?limit={q.limit}&offset={(totalPages - 1) * q.limit}";
-                string? next = (q.offset + q.limit < total) ? $"{baseUrl}?limit={q.limit}&offset={q.offset + q.limit}" : null;
-                string? prev = (q.offset > 0) ? $"{baseUrl}?limit={q.limit}&offset={Math.Max(0, q.offset - q.limit)}" : null;
+                string? next = (q.offset + q.limit < total)
+                    ? $"{baseUrl}?limit={q.limit}&offset={q.offset + q.limit}"
+                    : null;
+                string? prev = (q.offset > 0)
+                    ? $"{baseUrl}?limit={q.limit}&offset={Math.Max(0, q.offset - q.limit)}"
+                    : null;
+
+                var links = new List<object>();
+
+                links.Add(new { rel = "first", href = first });
+                if (next != null) links.Add(new { rel = "next", href = next });
+                if (prev != null) links.Add(new { rel = "prev", href = prev });
+                links.Add(new { rel = "last", href = last });
 
                 return StatusCode(StatusCodes.Status206PartialContent, new
                 {
@@ -160,7 +177,7 @@ namespace ApiSimulador.Controllers
                     qtdRegistros = total,
                     qtdRegistrosPagina = q.limit,
                     registros = simulacoes,
-                    Links = new[] { first, next, prev, last }.Where(x => x != null)
+                    links
                 });
             }
             catch (Exception ex)
@@ -168,6 +185,10 @@ namespace ApiSimulador.Controllers
                 return Problem($"Erro ao listar simulações: {ex.Message}", statusCode: 500);
             }
         }
+
+
+
+
 
         // GET /api/simulacoes/2025-08-21?codigoProduto=123
         /// <summary>
@@ -218,9 +239,9 @@ namespace ApiSimulador.Controllers
                     DescricaoProduto = descricoes.TryGetValue(g.Key, out var nome) ? nome : null,
                     TaxaMediaJuro = g.Average(x => x.PC_TAXA_JUROS),
                     ValorTotalDesejado = Math.Round(g.Sum(x => x.VR_SIMULACAO), 2),
-                    ValorMedioPrestacao = g.SelectMany(x => x.Parcelas).Any()
+                    ValorMedioPrestacao = Math.Round( g.SelectMany(x => x.Parcelas).Any()
                         ? g.SelectMany(x => x.Parcelas).Average(p => p.VR_PRESTACAO)
-                        : 0m,
+                        : 0m),
                     ValorTotalCreditoSAC = g.SelectMany(x => x.Parcelas)
                                             .Where(p => p.TP_AMORTIZACAO.Equals("SAC", StringComparison.OrdinalIgnoreCase))
                                             .Sum(p => p.VR_PRESTACAO),
@@ -273,7 +294,7 @@ namespace ApiSimulador.Controllers
             var lista = logs.ToList();
 
             var total = lista.Count;
-            var tempoMedio = total == 0 ? 0.0 : lista.Average(l => (double)l.DurationMs);
+            var tempoMedio = total == 0 ? 0.0 : Math.Round(lista.Average(l => (double)l.DurationMs), 2);
             var tempoMin = total == 0 ? 0 : lista.Min(l => l.DurationMs);
             var tempoMax = total == 0 ? 0 : lista.Max(l => l.DurationMs);
             var sucesso = total == 0 ? 0 : lista.Count(l => l.StatusCode >= 200 && l.StatusCode < 300);

@@ -19,7 +19,7 @@ namespace ApiSimulador.Contracts.Requests
         /// </summary>
         /// <example>5</example>
         [Required(ErrorMessage = "O numero de parcelas é obrigatório!")]
-        [Range(1, 420, ErrorMessage = "O valor deve estar entre zero e 420.")]
+        [Range(1, 420, ErrorMessage = "O número de prestações deve estar entre {0} e {420}.")]
         public short Prazo { get; set; }      // ex.: prazo em meses
     }
 }
