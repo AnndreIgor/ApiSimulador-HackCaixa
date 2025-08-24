@@ -90,7 +90,7 @@ namespace ApiSimulador.Controllers
                 await _mysqlContext.SaveChangesAsync();
 
                 return Ok(new
-                {
+                {   simu.CO_SIMULACAO,
                     codigoProduto = produto.CO_PRODUTO,
                     descricaoProduto = produto.NO_PRODUTO,
                     taxaJuros = produto.PC_TAXA_JUROS,
