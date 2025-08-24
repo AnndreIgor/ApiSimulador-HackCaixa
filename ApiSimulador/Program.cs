@@ -177,6 +177,28 @@ builder.Services
         o.SubstituteApiVersionInUrl = true;
     });
 
+builder.Services
+    .AddControllers()
+    .ConfigureApiBehaviorOptions(options =>
+    {
+        options.InvalidModelStateResponseFactory = context =>
+        {
+            var mensagens = context.ModelState
+                .Where(x => x.Value?.Errors.Count > 0)
+                .SelectMany(x => x.Value!.Errors)
+                .Select(e => new {mensagem = e.ErrorMessage })
+                .ToList();
+
+            var payload = new
+            {
+                erro = StatusCodes.Status400BadRequest,
+                mensagens
+            };
+
+            return new BadRequestObjectResult(payload);
+        };
+    });
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
