@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiSimulador.Context
 {
-    public class MySqlDbContext: DbContext
+    public class MySqlDbContext : DbContext
     {
         public MySqlDbContext(DbContextOptions<MySqlDbContext> options) : base(options) { }
 

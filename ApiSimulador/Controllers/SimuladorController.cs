@@ -3,9 +3,7 @@ using ApiSimulador.Contracts.Requests;
 using ApiSimulador.Contracts.Responses;
 using ApiSimulador.Models;
 using Asp.Versioning;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.Amqp.Framing;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -48,7 +46,7 @@ namespace ApiSimulador.Controllers
                 if (produto == null)
                     return NotFound(new { Mensagem = "Nenhum produto encontrado para os parâmetros fornecidos." });
 
-                if (produto.PC_TAXA_JUROS <= 0) 
+                if (produto.PC_TAXA_JUROS <= 0)
                     throw new ArgumentException("Taxa de juros deve ser positiva para PRICE");
 
                 var linhasPrice = CalcularPrice(req.Valor, req.Prazo, produto.PC_TAXA_JUROS);
@@ -90,7 +88,8 @@ namespace ApiSimulador.Controllers
                 await _mysqlContext.SaveChangesAsync();
 
                 return Ok(new
-                {   idSimulacao = simu.CO_SIMULACAO,
+                {
+                    idSimulacao = simu.CO_SIMULACAO,
                     codigoProduto = produto.CO_PRODUTO,
                     descricaoProduto = produto.NO_PRODUTO,
                     taxaJuros = produto.PC_TAXA_JUROS,
@@ -192,14 +191,14 @@ namespace ApiSimulador.Controllers
         /// <response code="500">Se ocorrer um erro interno no servidor</response>
         [HttpGet("simulacoes/{data-referencia}")]
         public IActionResult Get(
-            [FromRoute(Name = "data-referencia")] DateOnly dataReferencia, 
+            [FromRoute(Name = "data-referencia")] DateOnly dataReferencia,
             [FromQuery] SimulacoesQuery query)
         {
-            
+
             var querySimulacoes = _mysqlContext.SIMULACAO.AsNoTracking();
             querySimulacoes = querySimulacoes.Where(s => s.DT_SIMULACAO.Date == dataReferencia.ToDateTime(TimeOnly.MinValue).Date);
 
-            if (query.codigoProduto.HasValue) 
+            if (query.codigoProduto.HasValue)
             {
                 querySimulacoes = querySimulacoes.Where(s => s.CO_PRODUTO == query.codigoProduto);
             }

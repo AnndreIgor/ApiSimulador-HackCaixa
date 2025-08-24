@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using ApiSimulador.Controllers;
+﻿using ApiSimulador.Controllers;
 using ApiSimulador.Models;
 using FluentAssertions;
-using Xunit;
+using System.Reflection;
 
 namespace ApiSimulador.Tests.Unit.Controllers;
 

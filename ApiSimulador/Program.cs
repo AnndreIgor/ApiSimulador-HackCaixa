@@ -1,17 +1,14 @@
-using System.Reflection;
-using Azure.Messaging.EventHubs.Producer;
-using Asp.Versioning;
-using DotNetEnv;
-using Microsoft.OpenApi.Models;
-using Microsoft.EntityFrameworkCore;
 using ApiSimulador.Context;
 using ApiSimulador.Middlewares;
-
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-
-using Microsoft.AspNetCore.Mvc;
+using Asp.Versioning;
+using Azure.Messaging.EventHubs.Producer;
+using DotNetEnv;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
 using System.Text.Json;
 
 
@@ -186,7 +183,7 @@ builder.Services
             var mensagens = context.ModelState
                 .Where(x => x.Value?.Errors.Count > 0)
                 .SelectMany(x => x.Value!.Errors)
-                .Select(e => new {mensagem = e.ErrorMessage })
+                .Select(e => new { mensagem = e.ErrorMessage })
                 .ToList();
 
             var payload = new

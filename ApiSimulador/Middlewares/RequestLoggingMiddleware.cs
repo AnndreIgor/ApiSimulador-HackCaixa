@@ -1,6 +1,5 @@
-﻿using ApiSimulador.Models;
-using ApiSimulador.Context;
-using Microsoft.AspNetCore.Routing;
+﻿using ApiSimulador.Context;
+using ApiSimulador.Models;
 using System.Diagnostics;
 
 public class RequestLoggingMiddleware

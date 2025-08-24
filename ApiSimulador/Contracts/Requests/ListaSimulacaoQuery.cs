@@ -8,7 +8,7 @@ namespace ApiSimulador.Contracts.Requests
         /// Quantidade de simulações por página.
         /// </summary>
         /// <example>50</example>
-        [Range(1, 200, ErrorMessage = "A quantidade de simulações por página deve estar entre {1} e {100}" )]
+        [Range(1, 200, ErrorMessage = "A quantidade de simulações por página deve estar entre {1} e {100}")]
         public int limit { get; set; } = 50;
 
         /// <summary>
