@@ -1,0 +1,42 @@
+{
+    "jogo": "Mortal Kombat Trilogy",
+    "notacao": "X=Low Punch, ▢=High Punch, O=Low Kick, △=High Kick, L1=Block, RUN=Run",
+    "observacoes": [
+        "Brutalities normalmente exigem distância 'Close' (perto).",
+        "Algumas versões/portas (PS/PC/Saturn vs N64) têm pequenas variações."
+    ],
+    "brutalities": [
+        {"personagem": "Baraka", "distancia": "Close", "sequencia": ["▢","▢","▢","X","X","L1","△","△","O","O","L1"]},
+        {"personagem": "Johnny Cage", "distancia": "Close", "sequencia": ["▢","O","△","X","▢","△","△","▢","▢","X","▢"]},
+        {"personagem": "Sub-Zero (Clássico)", "distancia": "Close", "sequencia": ["▢","X","▢","L1","O","O","△","△","X","▢","X"]},
+        {"personagem": "Cyrax", "distancia": "Close", "sequencia": ["▢","△","▢","△","△","▢","△","▢","△","O","X"]},
+        {"personagem": "Ermac", "distancia": "Close", "sequencia": ["▢","▢","X","L1","△","O","L1","▢","X","O","△"]},
+        {"personagem": "Smoke (Humano)", "distancia": "Close", "sequencia": ["▢","▢","L1","O","△","▢","△","▢","△","X","O"]},
+        {"personagem": "Jade", "distancia": "Close", "sequencia": ["▢","O","▢","X","△","△","O","L1","L1","▢","△"]},
+        {"personagem": "Jax", "distancia": "Close", "sequencia": ["▢","▢","▢","L1","X","▢","▢","▢","L1","X","▢"]},
+        {"personagem": "Jax (MK2)", "distancia": "Close", "sequencia": ["▢","▢","L1","△","X","X","▢","L1","△","△","▢"]},
+        {"personagem": "Kabal", "distancia": "Close", "sequencia": ["▢","L1","O","O","O","△","X","X","X","▢","X"]},
+        {"personagem": "Kano", "distancia": "Close", "sequencia": ["▢","X","L1","X","▢","L1","△","O","L1","△","O"]},
+        {"personagem": "Kano (MK1)", "distancia": "Close", "sequencia": ["▢","▢","L1","△","△","O","△","▢","▢","X","▢"]},
+        {"personagem": "Kitana", "distancia": "Close", "sequencia": ["▢","▢","L1","△","L1","O","L1","▢","L1","▢","L1"]},
+        {"personagem": "Kung Lao", "distancia": "Close", "sequencia": ["▢","X","O","△","L1","▢","X","O","△","L1","▢"]},
+        {"personagem": "Kung Lao (MK2)", "distancia": "Close", "sequencia": ["▢","X","△","△","X","X","X","O","O","L1","▢"]},
+        {"personagem": "Liu Kang", "distancia": "Close", "sequencia": ["▢","X","▢","L1","O","△","O","△","X","X","▢"]},
+        {"personagem": "Mileena", "distancia": "Close", "sequencia": ["▢","X","X","▢","L1","△","O","△","L1","▢","X"]},
+        {"personagem": "Nightwolf", "distancia": "Close", "sequencia": ["▢","▢","△","O","O","L1","L1","X","X","▢","△"]},
+        {"personagem": "Noob Saibot", "distancia": "Close", "sequencia": ["▢","O","X","L1","O","△","▢","X","L1","O","△"]},
+        {"personagem": "Rain", "distancia": "Close", "sequencia": ["▢","▢","L1","O","△","L1","O","△","L1","▢","X"]},
+        {"personagem": "Raiden", "distancia": "Close", "sequencia": ["▢","▢","O","O","O","△","X","X","X","L1","L1"]},
+        {"personagem": "Raiden (MK1)", "distancia": "Close", "sequencia": ["▢","▢","▢","▢","L1","△","△","X","▢","▢","▢"]},
+        {"personagem": "Reptile", "distancia": "Close", "sequencia": ["▢","L1","△","△","L1","▢","X","O","O","L1","X"]},
+        {"personagem": "Scorpion", "distancia": "Close", "sequencia": ["▢","▢","L1","△","△","O","△","▢","▢","X","▢"]},
+        {"personagem": "Sektor", "distancia": "Close", "sequencia": ["▢","▢","L1","L1","△","△","O","O","X","X","▢"]},
+        {"personagem": "Shang Tsung", "distancia": "Close", "sequencia": ["▢","L1","L1","L1","O","▢","X","X","L1","L1","L1"]},
+        {"personagem": "Sheeva", "distancia": "Close", "sequencia": ["▢","X","L1","O","△","L1","△","O","L1","X","▢"]},
+        {"personagem": "Sindel", "distancia": "Close", "sequencia": ["▢","L1","O","L1","O","△","L1","△","O","L1","X"]},
+        {"personagem": "Smoke (Ciborgue)", "distancia": "Close", "sequencia": ["▢","O","O","△","L1","L1","X","X","▢","▢","L1","L1"]},
+        {"personagem": "Sonya", "distancia": "Close", "sequencia": ["▢","O","L1","▢","O","L1","▢","X","L1","△","O"]},
+        {"personagem": "Stryker", "distancia": "Close", "sequencia": ["▢","X","△","O","▢","X","O","△","▢","O","O"]},
+        {"personagem": "Sub-Zero", "distancia": "Close", "sequencia": ["▢","O","△","X","▢","△","△","▢","▢","X","▢"]}
+    ]
+}

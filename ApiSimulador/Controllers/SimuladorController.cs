@@ -5,6 +5,7 @@ using ApiSimulador.Models;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 
 namespace ApiSimulador.Controllers
@@ -187,9 +188,6 @@ namespace ApiSimulador.Controllers
         }
 
 
-
-
-
         // GET /api/simulacoes/2025-08-21?codigoProduto=123
         /// <summary>
         /// Lista os valores simulados em uma data, agregados pelo código do produto.
@@ -320,6 +318,47 @@ namespace ApiSimulador.Controllers
             return Ok(response);
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
+        [HttpGet("easter-egg")]
+        public IActionResult Brutal([FromQuery] string? personagem)
+        {
+            var caminho = Path.Combine(Directory.GetCurrentDirectory(), "data", "mk.json");
+
+            if (!System.IO.File.Exists(caminho))
+                return NotFound("Arquivo JSON não encontrado.");
+
+            var json = System.IO.File.ReadAllText(caminho);
+
+            MortalKombatData dados;
+            try
+            {
+                dados = JsonSerializer.Deserialize<MortalKombatData>(json, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+            }
+            catch (JsonException)
+            {
+                return StatusCode(500, "Erro ao desserializar o JSON.");
+            }
+
+            if (dados?.Brutalities == null)
+                return StatusCode(500, "Lista de brutalities não encontrada.");
+
+            if(string.IsNullOrWhiteSpace(personagem))
+                return Ok(dados.Brutalities);
+
+            var resultado = dados.Brutalities
+                .Where(b => b.Personagem.Equals(personagem, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            if (!resultado.Any())
+                return NotFound($"Personagem '{personagem}' não encontrado.");
+
+            return Ok(resultado);
+        }
+
+
 
         private static List<Parcela> CalcularPrice(decimal principal, int n, decimal i)
         {
@@ -382,5 +421,15 @@ namespace ApiSimulador.Controllers
         private static decimal Round2(decimal v) =>
             Math.Round(v, 2, MidpointRounding.AwayFromZero);
 
+    }
+
+
+    
+
+    public class Brutality
+    {
+        public string Personagem { get; set; }
+        public string Distancia { get; set; }
+        public List<string> Sequencia { get; set; }
     }
 }
