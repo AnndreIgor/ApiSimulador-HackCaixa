@@ -1,5 +1,6 @@
 using ApiSimulador.Context;
 using ApiSimulador.Middlewares;
+using ApiSimulador.Options;
 using Asp.Versioning;
 using Azure.Messaging.EventHubs.Producer;
 using DotNetEnv;
@@ -196,6 +197,15 @@ builder.Services
         };
     });
 
+builder.Services.Configure<EventHubOptions>(cfg =>
+{
+    // use o caminho EXATO da rota no Request.Path (sem host, sem query string)
+    cfg.TargetRoutes = new List<string>
+    {
+        "/api/v1/simulador/simular"
+    };
+});
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -256,6 +266,7 @@ if (!app.Environment.IsDevelopment())
         });
     });
 }
+
 
 app.MapControllers();
 
